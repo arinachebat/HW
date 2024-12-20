@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+struct Rectangle {
+    double width;
+    double height;
+
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    bool operator==(const Rectangle& other) const {
+        return (width == other.width && height == other.height);
+    }
+
+    void display() const {
+        cout << "Width: " << width << ", Height: " << height << std::endl;
+    }
+};
+
+int main() {
+    Rectangle rect1(4.0, 5.0);
+    Rectangle rect2(4.0, 5.0);
+    
+    rect1.display();
+    rect2.display();
+
+    if (rect1 == rect2) {
+        cout << "Rectangles are equal." << endl;
+    } else {
+        cout << "Rectangles are not equal." << endl;
+    }
+
+    return 0;
+}
