@@ -1,0 +1,26 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+string lettersToNumbers(const string& text) {
+    ostringstream result;
+    for (char ch : text) {
+        if (isalpha(ch)) {
+            int number = toupper(ch) - 'A' + 1;
+            result << number << " ";
+        }
+    }
+    string output = result.str();
+    if (!output.empty()) {
+        output.pop_back(); // Удаляем последний пробел
+    }
+    return output;
+}
+
+int main() {
+    string input = "TOWN";
+    cout << lettersToNumbers(input) << endl; // "20 15 23 14"
+    return 0;
+}
