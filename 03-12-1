@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string atbashCipher(const string& text) {
+    string result;
+    for (char ch : text) {
+        if (isalpha(ch)) {
+            char base = islower(ch) ? 'a' : 'A';
+            result += (base + ('z' - ch));
+        } else {
+            result += ch;
+        }
+    }
+    return result;
+}
+
+int main() {
+    string input = "HELLO";
+    cout << atbashCipher(input) << endl; // "SVOOL"
+    return 0;
+}
