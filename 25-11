@@ -1,0 +1,175 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+int MaxOfList(Node* head) {
+    if (!head) throw std::runtime_error("List is empty");
+    
+    int max = head->data;
+    Node* current = head->next;
+    
+    while (current) {
+        if (current->data > max) {
+            max = current->data;
+        }
+        current = current->next;
+    }
+    
+    return max;
+}
+
+
+int MinOfList(Node* head) {
+    if (!head) throw std::runtime_error("List is empty");
+    
+    int min = head->data;
+    Node* current = head->next;
+    
+    while (current) {
+        if (current->data < min) {
+            min = current->data;
+        }
+        current = current->next;
+    }
+    
+    return min;
+}
+
+
+int SumOfList(Node* head) {
+    int sum = 0;
+    Node* current = head;
+    
+    while (current) {
+        sum += current->data;
+        current = current->next;
+    }
+    
+    return sum;
+}
+
+
+bool ContainsList(Node* head, int targetValue) {
+    Node* current = head;
+    
+    while (current) {
+        if (current->data == targetValue) {
+            return true;
+        }
+        current = current->next;
+    }
+    
+    return false;
+}
+
+
+Node* DeleteElementFromList(Node* head, int index) {
+    if (!head || index < 0) return head;
+
+    Node* temp = head;
+
+    if (index == 0) { /
+        head = temp->next; 
+        delete temp; 
+        return head;
+    }
+
+    for (int i = 0; temp != nullptr && i < index - 1; i++) {
+        temp = temp->next; 
+    }
+
+    if (temp == nullptr || temp->next == nullptr) return head; 
+
+    Node* next = temp->next->next; 
+    delete temp->next; 
+    temp->next = next; 
+    return head;
+}
+
+
+Node* CopyList(Node* head) {
+    if (!head) return nullptr;
+
+    Node* newHead = new Node(head->data);
+    Node* currentNew = newHead;
+    Node* currentOld = head->next;
+
+    while (currentOld) {
+        currentNew->next = new Node(currentOld->data);
+        currentNew = currentNew->next;
+        currentOld = currentOld->next;
+    }
+
+    return newHead;
+}
+
+
+void SwapList(Node* head, int index1, int index2) {
+    if (index1 == index2) return; 
+
+    Node *prev1 = nullptr, *curr1 = head;
+    for (int i = 0; curr1 && i < index1; i++) {
+        prev1 = curr1;
+        curr1 = curr1->next;
+    }
+
+    Node *prev2 = nullptr, *curr2 = head;
+    for (int i = 0; curr2 && i < index2; i++) {
+        prev2 = curr2;
+        curr2 = curr2->next;
+    }
+
+    if (!curr1 || !curr2) return; 
+
+    if (prev1) prev1->next = curr2; else head = curr2; 
+    if (prev2) prev2->next = curr1; else head = curr1;
+
+    Node* temp = curr1->next; 
+    curr1->next = curr2->next; 
+    curr2->next = temp; 
+}
+
+
+void DeleteList(Node* head) {
+    while (head) {
+        Node* temp = head;
+        head = head->next;
+        delete temp; 
+}
+
+
+Node* StaticArrayToList(int array[], int size) {
+    if (size <= 0) return nullptr;
+
+    Node* head = new Node(array[0]);
+    Node* current = head;
+
+    for (int i = 1; i < size; i++) {
+        current->next = new Node(array[i]);
+        
+            current = current->next;
+    }
+
+    return head;
+}
+
+
+Node* DynamicArrayToList(int* array, int size) {
+    if (size <= 0 || !array) return nullptr;
+
+    Node* head = new Node(array[0]);
+    Node* current = head;
+
+    for (int i = 1; i < size; i++) {
+        current->next = new Node(array[i]);
+        current = current->next;
+    }
+
+    return head;
+}
