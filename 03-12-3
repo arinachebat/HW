@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+using namespace std;
+
+string removeDuplicates(const string& text) {
+    unordered_set<char> seen;
+    string result;
+    
+    for (char ch : text) {
+        if (seen.find(ch) == seen.end()) {
+            seen.insert(ch);
+            result += ch;
+        }
+    }
+    
+    return result;
+}
+
+int main() {
+    string input = "Hello World";
+    cout << removeDuplicates(input) << endl; // "Helo Wrd"
+    return 0;
+}
