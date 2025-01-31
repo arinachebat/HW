@@ -1,0 +1,61 @@
+#include <iostream>
+
+using namespace std;
+
+const int fin = 7;
+const int rows = 4;
+const int cols = 4;
+
+struct Figure {
+    int id;
+    int field[rows][cols];
+};
+
+void Tetris(Figure figures[]) {
+    figures[0] = {1, {{1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+    figures[1] = {2, {{1, 1, 0, 0}, {1, 1, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+    figures[2] = {3, {{0, 1, 0, 0}, {1, 1, 1, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+    figures[3] = {4, {{1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+    figures[4] = {5, {{0, 1, 1, 0}, {1, 1, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+    figures[5] = {6, {{1, 1, 1, 0}, {1, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+    figures[6] = {7, {{1, 1, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}};
+}
+
+int random(int max) {
+    static int seed = 42;
+    seed = (seed * 1103515245 + 12345) % (max + 1);
+    return seed;
+}
+
+void moRandi(Figure randomFigures[], Figure figures[], int count) {
+    for (int i = 0; i < count; i++) {
+        int randomIndex = random(fin - 1);
+        randomFigures[i] = figures[randomIndex];
+    }
+}
+
+void printFigures(const Figure figures[], int count) {
+    for (int i = 0; i < count; i++) {
+        cout << "Figure ID: " << figures[i].id << endl;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                cout << (figures[i].field[row][col] ? '*' : ' ') << ' ';
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
+int main() {
+    Figure figures[fin];
+    Tetris(figures);
+
+    const int numbe = 5;
+    Figure randomFigures[numbe];
+
+    moRandi(randomFigures, figures, numbe);
+    printFigures(randomFigures, numbe);
+
+    return 0;
+}
