@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+
+void lol(int** array, int cols, int rows) 
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            cout << array[i][j] << " ";
+        }
+        cout << "\n";
+    }
+}
+
+void kek(int** array, int cols, int rows) 
+{
+    int num = 1;
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            array[i][j] = num;
+            num++;
+        }
+    }
+}
+
+int** create(int cols, int rows) 
+{
+    int** array = new int*[rows];
+    for (int i = 0; i < rows; i++)
+    {
+        array[i] = new int[cols];
+    }
+    kek(array, cols, rows); 
+    lol(array, cols, rows); 
+    return array;
+}
+
+int** boo(int** array, int& cols, int& rows) 
+{
+    int** newarr = new int*[cols];
+    for (int i = 0; i < cols; i++)
+    {
+        newarr[i] = new int[rows];
+    }
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            newarr[j][rows - 1 - i] = array[i][j]; 
+        }
+    }
+
+    lol(newarr, rows, cols); 
+
+
+    swap(cols, rows); 
+    return newarr;
+}
+
+int main()
+{
+    int cols = 3;
+    int rows = 3;
+
+    int** array = create(cols, rows); // Создание массива
+
+    // Повороты массива
+    for (int i = 0; i < 4; ++i)
+    {
+        cout << "Вращение " << (i * 90)<<endl;
+        array = boo(array, cols, rows);
+        cout << '\n';
+    }
+
+   
+
+    return 0;
+}
