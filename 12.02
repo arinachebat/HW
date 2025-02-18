@@ -1,0 +1,96 @@
+#include <iostream>
+using namespace std;
+
+
+
+class length
+{
+private:
+    int KM;
+    int M;
+
+public:
+    length(int KM, int M)
+    {
+        this->KM = KM;
+        this->M = M;
+    }
+    length operator+ (const length& Distance)
+    {
+        M = M + Distance.M;
+        
+        
+        while (M > 1000)
+        {
+            M -= 1000;
+            KM++;
+        }
+        return length(KM + Distance.KM, M);
+    }
+    length operator+= (const int& adddistance)
+    {
+        KM = KM + adddistance;
+        return *this;
+    }
+    length operator-= (const int& adddistance)
+    {
+        KM = KM - adddistance;
+        return *this;
+    }
+    length operator*= (const int& adddistance)
+    {
+        M = M * adddistance;
+        KM = KM * adddistance;
+        while (M > 1000)
+        {
+            M -= 1000;
+            KM++;
+        }
+        return *this;
+    }
+    length operator/= (const int& adddistance)
+    {
+        M = M / adddistance;
+        KM = KM / adddistance;
+        return *this;
+    }
+   
+    bool operator== (const length& secondCurrency)
+    {
+        return KM == secondCurrency.KM ? true : false;
+
+    }
+  
+    bool operator!= (const length& secondCurrency)
+    {
+        return KM == secondCurrency.KM ? false : true;
+
+    }
+    friend ostream& operator<<(ostream& stream, length& curr)
+    {
+        stream << "long:" << curr.KM << "." << curr.M << endl;
+        return stream;
+    }
+    friend istream& operator>>(istream& stream, length& curr) {
+        cout << "Dist.KM: " << endl;    stream >> curr.KM;
+        cout << "Dist.M: ";    stream >> curr.M;
+        while (curr.M >= 1000)
+        {
+            curr.M -= 1000;
+            curr.KM++;
+        }
+        return stream;
+    }
+};
+
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    length vvv = length(5, 10);
+    length vv2 = length(15, 25);
+    length vv3 = vvv + vv2;
+    vv2 += 99;
+    vv3 -= 99;
+    cin >> vv3;
+    cout << vv3;
+}
