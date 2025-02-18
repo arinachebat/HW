@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string> 
+
+using namespace std;
+
+class socks {
+public:
+    string smelly;
+    string unworn;
+
+
+    void print()const {
+
+        cout << smelly << "Носки:Порванные,ношенные носки."<< unworn << "Новые,не крутые носки " << endl;
+    }
+};
+
+class shoes {
+public:
+    string size;
+    string price;
+    string model;
+
+
+    void print() const {
+
+        cout << size << "Обувь:45 размер, " << price <<"40.000, " << model <<" Галоши " << endl;
+        cout << size << "Обувь:39 размер, " << price << "5000, " << model << " Кроссовки " << endl;
+    }
+};
+
+
+class Accessory {
+public:
+     string type;
+     string color;
+   
+
+    void print() const {
+
+        cout << type << "Акссексуары:ремень," << color << "черный " << endl;
+    }
+
+};
+class Store : public socks, public shoes, public Accessory {
+public:
+   
+    void print() const {
+        cout << "Магазин" << endl;
+        socks::print();
+        shoes::print();
+        Accessory::print();
+    }
+};
+
+
+int main() {
+
+    setlocale(LC_ALL, "rus");
+    Store myStore;
+    myStore.print();
+    return 0;
+
+}
