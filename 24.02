@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+
+bool dumb(string pass)
+{
+    if (pass.size() < 8)
+    {
+        return true;
+    }
+    for (int i = 0;i < pass.size();i++) 
+    {
+        if (pass[i] == '.'|| pass[i] == ','|| pass[i] == '/')
+        {
+            return true;
+        }
+    }
+ 
+    return false;
+
+}
+void checkPass() {
+    string pass;
+    while (true)
+    {
+        cout << "Для регистрации введите пароль состоящий минимиум из 8 символов без знаков '.', ',', '/'\n";
+
+        cin >> pass;
+        try
+        {
+            if (dumb(pass))
+                throw  "error";
+            else
+            {
+                cout << "Пароль принят\n";
+
+                cout << "Новый пароль: " << pass;
+                break;
+
+            }
+        }
+        catch (const char* error) {
+            cout << error << endl;
+        }
+    }
+        
+
+}
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    checkPass();
+}
