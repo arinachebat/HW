@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string> 
+
+using namespace std;
+
+class body  { 
+public:
+    string Bodyy;
+    string manufacturer;
+
+
+    void print()const {
+
+        cout << Bodyy << "Body- red color  " << manufacturer << "manufacturer,BMW " << endl;
+    }
+};
+
+class tires  {
+public:
+    string radius;
+
+
+    void print() const{
+
+        cout << radius << "tires,radius:R16 " << endl;
+    }
+};
+
+
+class engine  {
+public:
+    string manufact;
+    string power;
+
+    void print() const{
+
+        cout << power << "engine - S63 - BMW M5 CS " << manufact << "manufacturer ,BMW" << endl;
+    }
+
+ };
+class Interior {
+public:
+    void print() const {
+        cout << "Interior: Leather seats, modern dashboard." << endl;
+    }
+};
+
+class car : public body, public tires, public engine, public Interior {
+public:
+    string year;
+    string country;
+
+
+
+    void print() const {
+        cout << "Car" << endl;
+        body::print();
+        tires::print();
+        engine::print();
+        Interior::print();
+    }
+};
+
+
+int main() {
+    car myCar;
+    myCar.print();
+    return 0;
+
+}
