@@ -1,0 +1,69 @@
+#include <iostream>
+#include <string>
+#include <stdexcept>
+
+using namespace std;
+
+class Vehicle {
+protected:
+    int numWheels;
+    string brand;
+
+public:
+    Vehicle(int wheels, const string& br) : numWheels(wheels), brand(br) {
+        if (wheels <= 0) {
+            throw invalid_argument("Number of wheels must be positive.");
+        }
+    }
+
+    void display() const {
+        cout << "Brand: " << brand << ", Wheels: " << numWheels << endl;
+    }
+
+    void incrementWheels() {
+        numWheels++;
+    }
+};
+
+class Car : public Vehicle {
+public:
+    Car(const string& br) : Vehicle(4, br) {}
+};
+
+class Truck : public Vehicle {
+public:
+    Truck(const string& br) : Vehicle(6, br) {}
+};
+
+class Bus : public Vehicle {
+public:
+    Bus(const string& br) : Vehicle(8, br) {}
+};
+
+class Sedan : public Car {
+public:
+    Sedan(const string& br) : Car(br) {}
+};
+
+int main() {
+    try {
+        Car myCar("Toyota");
+        Truck myTruck("Ford");
+        Bus myBus("Mercedes");
+        Sedan mySedan("Honda");
+
+        myCar.display();
+        myTruck.display();
+        myBus.display();
+        mySedan.display();
+
+        myCar.incrementWheels();
+        cout << "After incrementing wheels: ";
+        myCar.display();
+
+    } catch (const invalid_argument& e) {
+        cerr << "Error: " << e.what() << endl;
+    }
+
+    return 0;
+}
