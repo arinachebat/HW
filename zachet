@@ -1,0 +1,143 @@
+
+#include <iostream>
+using namespace std;
+
+class Publication {
+protected:
+    string title;
+public:
+    virtual void print() = 0;
+    virtual void launch() = 0;
+};
+
+class PrintProduct {
+public:
+    virtual void print() = 0;
+    friend PrintProduct& operator<<(ostream& out, PrintProduct& product);
+};
+
+class Journal : public PrintProduct, public Publication {
+private:
+    string issue_number;
+    int publication_year;
+public:
+    void print() override {
+        cout << "Номер выпуска: " << issue_number << endl;
+        cout << "Год публикации: " << publication_year << endl;
+        cout << "Наименование издания: " << title << endl;
+    }
+    Journal() {
+        title = "";
+        publication_year = 0;
+        issue_number = "";
+    }
+    Journal(string title, int year, string issue) {
+        this->title = title;
+        publication_year = year;
+        issue_number = issue;
+    }
+    friend Journal& operator<<(ostream& out, Journal& journal) {
+        out << "Номер выпуска: " << journal.issue_number << endl;
+        out << "Год публикации: " << journal.publication_year << endl;
+        out << "Наименование издания: " << journal.title << endl;
+        return journal;
+    }
+    void launch() override {
+        // код для запуска (если необходимо)
+    }
+};
+
+class Book : public PrintProduct {
+private:
+    string author;
+    int publication_year;
+public:
+    void print() override {
+        cout << "Автор: " << author << endl;
+        cout << "Год публикации: " << publication_year << endl;
+    }
+    Book() {
+        publication_year = 0;
+        author = "";
+    }
+    Book(string author, int year) {
+        this->author = author;
+        publication_year = year;
+    }
+    friend Book& operator<<(ostream& out, Book& book) {
+        out << "Автор: " << book.author << endl;
+        out << "Год публикации: " << book.publication_year << endl;
+        return book;
+    }
+};
+
+class PrintedEdition : public PrintProduct {
+private:
+    string editor;
+    int publication_year;
+public:
+    void print() override {
+        cout << "Редактор: " << editor << endl;
+        cout << "Год публикации: " << publication_year << endl;
+    }
+    PrintedEdition() {
+        publication_year = 0;
+        editor = "";
+    }
+    PrintedEdition(string editor, int year) {
+        this->editor = editor;
+        publication_year = year;
+    }
+    friend PrintedEdition& operator<<(ostream& out, PrintedEdition& printedEdition) {
+        out << "Редактор: " << printedEdition.editor << endl;
+        out << "Год публикации: " << printedEdition.publication_year << endl;
+        return printedEdition;
+    }
+};
+
+class Textbook : public PrintProduct {
+private:
+    string subject;
+    int publication_year;
+public:
+    void print() override {
+        cout << "Предмет: " << subject << endl;
+        cout << "Год публикации: " << publication_year << endl;
+    }
+    Textbook() {
+        publication_year = 0;
+        subject = "";
+    }
+    Textbook(string subject, int year) {
+        this->subject = subject;
+        publication_year = year;
+    }
+    friend Textbook& operator<<(ostream& out, Textbook& textbook) {
+        out << "Предмет: " << textbook.subject << endl;
+        out << "Год публикации: " << textbook.publication_year << endl;
+        return textbook;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    Journal* journal = new Journal{ "Наука и Жизнь", 2023, "100" };
+    Book* book = new Book{ "Лев Толстой", 1869 };
+    Textbook* textbook = new Textbook{ "Математика", 2022 };
+
+    PrintProduct** arr = new PrintProduct * [3];
+    arr[0] = journal;
+    arr[1] = book;
+    arr[2] = textbook;
+
+    for (int i = 0; i < 3; i++) {
+        arr[i]->print();
+    }
+
+    delete journal;
+    delete book;
+    delete textbook;
+    delete[] arr;
+
+    return 0;
+}
