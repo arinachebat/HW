@@ -1,0 +1,15 @@
+public partial class Kata
+{
+  public static string ChineseZodiac(int year)
+    {
+        if (year < 1924)
+        {
+            return "Year must be 1924 or later.";
+        }
+
+        int animalIndex = (year - 1924) % 12;
+        int elementIndex = ((year - 1924) % 10) / 2;
+
+        return $"{elements[elementIndex]} {animals[animalIndex]}";
+    }
+}
