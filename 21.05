@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+namespace CodeWars
+{
+    class Kata
+    {
+        public Dictionary<double, bool> drive (double[,] drinks, string finished, string drive_time)
+        {
+          DateTime f = DateTime.Parse(finished);
+            DateTime d = DateTime.Parse(drive_time);
+
+            if (d < f)
+                d = d.AddDays(1);
+
+            TimeSpan ts = d - f;
+            double hours = ts.TotalHours;
+
+            Dictionary<double, bool> result = new Dictionary<double, bool>();
+            double units = 0;
+            for (int i = 0; i < drinks.GetLength(0); i++)
+            {
+                units += drinks[i, 0] * drinks[i, 1];
+            }
+            units = Math.Round(units / 1000, 2);
+
+            result.Add(units, units / hours < 1 ? true : false);
+            return result;
+        }
+    }
+}
