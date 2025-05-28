@@ -1,0 +1,39 @@
+using System;
+
+public class CuckooClockSolution
+{
+    public static string CuckooClock(string inputTime, int n)
+    {
+        var timeParts = inputTime.Split(':');
+        int hours = int.Parse(timeParts[0]);
+        int minutes = int.Parse(timeParts[1]);
+        int chimes = 0;
+
+        while (chimes < n)
+        {
+            if (minutes == 0)
+            {
+                chimes += hours;
+            }
+            if (minutes == 15 || minutes == 30 || minutes == 45)
+            {
+                chimes++;
+            }
+            if (chimes >= n)
+                break;
+
+            minutes++;
+            if (minutes == 60)
+            {
+                minutes = 0;
+                hours++;
+                if (hours == 13)
+                {
+                    hours = 1;
+                }
+            }
+        }
+
+        return $"{hours:D2}:{minutes:D2}";
+    }
+}
